@@ -64,10 +64,11 @@ func (m *_Manager) write(isProgress bool, data string) {
 	} else if isProgress && m.lastOutputInline {
 		os.Stderr.WriteString("\n")
 	}
-	os.Stderr.WriteString(data)
 	if isProgress {
+		os.Stderr.WriteString(data)
 		m.lastProgress = data
 	} else {
+		os.Stdout.WriteString(data)
 		m.lastOutputInline = data[len(data)-1] != '\n'
 		if m.lastProgress != "" {
 			m.resetTimer()
